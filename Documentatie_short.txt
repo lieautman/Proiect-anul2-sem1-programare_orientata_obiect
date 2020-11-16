@@ -1,0 +1,63 @@
+Care este scopul final?
+
+Implementarea unei versiuni limitate a unui sistem de gestionare a bazelor de date, cum ar fi SQLite https://www.sqlite.org/index.html
+
+Faza 1 - Cerințele procesorului de comandă
+
+În următoarea descriere, | înseamnă logică SAU și [] înseamnă că parametrul nu este obligatoriu.
+
+Implementați diferite clase C ++ care vă vor permite să interpretați diferite comenzi SQL primite de la consolă sau dintr-un fișier:
+
+1.      Soluția va fi utilizată pentru a gestiona o singură bază de date - doar una, cu mai multe tabele
+
+2.      comenzile acceptate pentru gestionarea structurii bazei de date sunt CREATE TABLE, DROP TABLE, DISPLAY TABLE
+
+1.      CREATE TABLE nume_tabel [DACĂ NU EXISTĂ] ((nume_coloană_1, tip, dimensiune, valoare_implicită), (nume_coloană_2, tip, dimensiune, valoare_implicită), ...) - comanda ar trebui să primească cel puțin 1 coloană
+
+2.      DROP TABLE table_name
+
+3.      DISPLAY TABLE table_name
+
+4.      tipurile acceptate sunt text, integer, float
+
+3.      Comenzile CRUD acceptate pentru gestionarea datelor sunt INSERT, SELECT, UPDATE , DELETE
+
+4.      Comanda acceptată pentru comenzile CRUD este (utilizați https://www.sqlite.org/lang.html pentru a vă face o idee)
+
+1.      INSERT INTO nume_tabela VALUES(...); valorile sunt separate prin, și au numărul și ordinea exacta ca definiția tabelului
+
+2.      DELETE FROM nume_tabela WHERE nume_coloană = valoare (DELETE permite doar o coloană în clauza WHERE)
+
+3.      SELECT (cel_putin_o_coloana, ...) | ALL FROM nume_tabela [WHERE nume_coloană = valoare] - clauza WHERE este opțională
+
+4.      UPDATE nume_tabela SET nume_coloană = valoare WHERE nume_coloană = valoare (coloana SET poate fi diferită de cea WHERE; UPDATE merge doar pentru o coloana)
+
+În acest moment ar trebui să dezvoltați funcții care vor primi un șir de caractere ( char * sau un string C ++) și identificați comenzile. Dacă comanda nu este bine formatată, trebuie să returnați un cod/mesaj de eroare.
+
+Acestea sunt cerințele funcționale. Cerințele specifice POO sunt publicate pe www.acs.ase.ro/cpp în faza 1 a proiectului.
+
+Recomandări
+
+·        Începeți cu o funcție/clasa generică care identifică tipul de comandă (SELECT, UPDATE etc.)
+
+·        Implementați clase specifice care vor valida un format și parametri specifici tipului de comandă
+
+·        Utilizați vectori pentru a stoca datele comenzilor
+
+·        Definiți clasele pentru entitățile care sunt descrise de un substantiv
+
+Rezultate:
+
+·        Un singur fișier .h care conține toate definițiile și implementarea claselor
+
+·        Un singur fișier sursă C ++ (utilizați extensia .cpp) care conține main ()
+
+·        O singură aplicație consolă C++ care va permite utilizatorilor să scrie comenzi din lista anterioară. Ieșirea pentru fiecare comandă este
+
+·        Mesaj de eroare dacă comanda nu este ok
+
+·        Detalii despre parametrii comenzii dacă comanda este ok
+
+Soluții acceptate: sunt acceptate numai soluțiile complete și fără erori ale compilatorului.
+
+ 
