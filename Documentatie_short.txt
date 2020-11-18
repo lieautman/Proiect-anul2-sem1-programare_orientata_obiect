@@ -7,8 +7,10 @@ Faza 1 - Cerințele procesorului de comandă
 În următoarea descriere, | înseamnă logică SAU și [] înseamnă că parametrul nu este obligatoriu.
 
 Implementați diferite clase C ++ care vă vor permite să interpretați diferite comenzi SQL primite de la consolă sau dintr-un fișier:
+//clasa comanda{tipul comenzii}
 
 1.      Soluția va fi utilizată pentru a gestiona o singură bază de date - doar una, cu mai multe tabele
+//clasa tabele
 
 2.      comenzile acceptate pentru gestionarea structurii bazei de date sunt CREATE TABLE, DROP TABLE, DISPLAY TABLE
 
