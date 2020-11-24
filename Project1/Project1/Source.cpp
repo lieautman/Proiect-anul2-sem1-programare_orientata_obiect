@@ -40,11 +40,18 @@ int main(){
 		strcpy(buffer[6], "DELETE");
 	#pragma endregion initializare buffer vector
 
-	//Luam cel de-al doilea cuvant si vedem daca se incadreaza in ce trebuie
-	if (p != NULL) {
-		p = strtok(NULL, " ");
-		command.setSecondWord(p);
-		printf("%s\n", command.getSecondWord());
+	if (strcmp(buffer[0], buffer0) == 0) {
+		//Luam cel de-al doilea cuvant si vedem daca se incadreaza in ce trebuie
+		if (p != NULL) {
+			p = strtok(NULL, " ");
+			
+	}
+
+
+
+
+
+
 
 
 		//mergem prin restul sirurilor
