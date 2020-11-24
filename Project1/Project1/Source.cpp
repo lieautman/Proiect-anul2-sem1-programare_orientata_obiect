@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
+#include"Header.h"
 using namespace std;
 
 
@@ -10,6 +11,11 @@ int main(){
 	cout << "Dati comanda:";
 	cin.getline(comandaDeLaStdin, sizeof(comandaDeLaStdin));//citire cu spatii de la stdin
 	p=strtok(comandaDeLaStdin, " ");//salvam primul subsir(Numele comenzii in comandaDeLaStdin)
+	//Cream obiectul de tip comanda
+	Command comanda;
+	
+
+
 
 	//mergem prin restul sirurilor
 	while (p != NULL) {
