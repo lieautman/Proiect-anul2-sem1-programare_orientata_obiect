@@ -15,9 +15,9 @@ Implementați diferite clase C ++ care vă vor permite să interpretați diferit
 2.      comenzile acceptate pentru gestionarea structurii bazei de date sunt CREATE TABLE, DROP TABLE, DISPLAY TABLE
 
 1.      CREATE TABLE nume_tabel [DACĂ NU EXISTĂ] ((nume_coloană_1, tip, dimensiune, valoare_implicită), (nume_coloană_2, tip, dimensiune, valoare_implicită), ...) - comanda ar trebui să primească cel puțin 1 coloană
-
+	CREATE TABLE nume_tabel ((nume_coloană_1, tip, dimensiune, valoare_implicita), (nume_coloană_2, tip, dimensiune, valoare_implicita))
 2.      DROP TABLE table_name
-
+	DROP TABLE nume_table
 3.      DISPLAY TABLE table_name
 
 4.      tipurile acceptate sunt text, integer, float
