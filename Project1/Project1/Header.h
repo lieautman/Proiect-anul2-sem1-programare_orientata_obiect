@@ -249,6 +249,8 @@ public:
 class INSERT_class {
 private:
 	bool isOk;
+	string* values;
+
 public:
 	INSERT_class() {
 		this->isOk = 1;
@@ -267,19 +269,110 @@ public:
 		return this->isOk;
 	}
 };
+
 //trebuie implementat
 class DELETE_class {
 private:
-	bool isInUse;
+	bool isOk;
+	string* numeColoane;
 public:
+	DELETE_class()
+	{
+		this->isOk = 0;
+		this->numeColoane = NULL;
+	}
+	
+	//getteri
+	bool getIsOk()
+	{
+		return this->isOk;
+	}
+	string* getNumeColoane()
+	{
+		return this->numeColoane;
+	}
+
+	//setteri
+	void setNumeColoane(string* bufferNume_coloane)
+	{
+		int itor = 0;
+		while (bufferNume_coloane[itor] != "")
+			itor++;
+		this->numeColoane = new string[++itor];
+		for (int i = 0; i <= itor; i++)
+			this->numeColoane[i] = "";
+		for (int i = 0; i < itor; i++)
+			this->numeColoane[i] = bufferNume_coloane[i];
+	}
 };
 class SELECT_class {
 private:
-	bool isInUse;
+	bool isOk;
+	string* numeColoane;
 public:
+	SELECT_class()
+	{
+		this->isOk = 0;
+		this->numeColoane = NULL;
+	}
+
+	//geteri
+	bool getIsOk()
+	{
+		return this->isOk;
+	}
+	string* getNumeColoane()
+	{
+		return this->numeColoane;
+	}
+
+	//setter
+	void setNumeColoane(string* bufferNume_coloane)
+	{
+		int itor = 0;
+		while (bufferNume_coloane[itor] != "")
+			itor++;
+		this->numeColoane = new string[++itor];
+		for (int i = 0; i <= itor; i++)
+			this->numeColoane[i] = "";
+		for (int i = 0; i < itor; i++)
+			this->numeColoane[i] = bufferNume_coloane[i];
+	}
 };
 class UPDATE_class {
 private:
-	bool isInUse;
+	bool isOk;
+	string numeColoana;
+	string whereNumeColoana;
 public:
+	UPDATE_class()
+	{
+		this->isOk = 0;
+		this->numeColoana = " ";
+		this->whereNumeColoana = " ";
+	}
+
+	//getteri
+	bool getIsOk()
+	{
+		return this->isOk;
+	}
+	string getNumeColoana()
+	{
+		return this->numeColoana;
+	}
+	string getWhereNumeColoana()
+	{
+		return this->whereNumeColoana;
+	}
+
+	//setteri
+	void setNumeColoana(string newNumeColoana)
+	{
+		this->numeColoana = newNumeColoana;
+	}
+	void setWhereNumeColoana(string newWhereNumeColoana)
+	{
+		this->numeColoana = newWhereNumeColoana;
+	}
 };
