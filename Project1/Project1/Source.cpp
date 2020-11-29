@@ -17,24 +17,21 @@ int stringtoint(string buffer) {
 }
 
 int main() {
-#pragma region citire comanda de la tastatura
 	//declarare si citire comanda luata de la tastatura de maxim 500 de caractere
 	char comandaDeLaStdin[500];
 	char* p = 0;//declarare pointer pt strtok, pentru a putea sparge sirul in subsiruri
 	cout << "Dati comanda:";
 	cin.getline(comandaDeLaStdin, sizeof(comandaDeLaStdin));//citire cu spatii de la stdin
-#pragma endregion citire comanda de la tastatura
-#pragma region save first keyword in class to determine what command to use
+
 	//Cream obiectul de tip comanda
 	Command command;
 
 	//Luam primul cuvand si vedem ce tip de comanda vom folosi
 	p = strtok(comandaDeLaStdin, " ");//salvam primul subsir(Numele comenzii in comandaDeLaStdin)
 	command.setFirstWord(p);//in metoda de set transformam pointerul in string si il clasificam ca keyword pentru o comanda
-
+	
 	//Seteaza tipul comenzii regasite in primul cuvant
 	command.setCommandTypeAtributes(ToTypeCommand(command.getFirstWord()));
-#pragma endregion save first keyword in class to determine what command to use
 
 	//Facem switch in functie de primul cuvant slavat in atributul tipul comenzi
 	switch (command.getCommandTypeAtributes()) {
@@ -48,7 +45,8 @@ int main() {
 		bufferTip = new string[100];
 		int* bufferDimensiune;
 		bufferDimensiune = new int[100];
-		for (int i = 0; i < 100; i++)
+		//initializam valorile cu 0
+		for (int i = 0; i < 99; i++)
 			bufferDimensiune[i] = 0;
 		string* bufferValoare_implicita;
 		bufferValoare_implicita = new string[100];
@@ -68,9 +66,9 @@ int main() {
 			string buffer;
 			//primul sir are doua paranteze la inceput
 			p = strtok(NULL, ", ");
-			buffer = charpointertostring(p + 2);//trebuie sa dau p+2 ca sa nu imi ia primele doua paranteze"(("
+			buffer = charpointertostring(p+2);//trebuie sa dau p+2 ca sa nu imi ia primele doua paranteze"(("
 			bufferNume_coloana[iter] = buffer;//nume_coloana_1
-			while (p != NULL) {
+			while(p!=NULL){
 				p = strtok(NULL, ", ");
 				if (p == NULL)//verifica daca am ajuns la final, inainte de ultima citire,p are valoare ")"
 					break;
@@ -103,42 +101,37 @@ int main() {
 #pragma region Afisare in fisier .txt a val pt tabel
 			//daca a trecut de toate testele si a salvat in clase atributele, modificam sau cream fisierul cu baza de date
 			ofstream myfile;
-			myfile.open("BazaDeDate.txt");
+			myfile.open("BazaDeDate.txt", ios::app);
 			myfile << command.getTableName() << ": ";
-			iter = 0;
-			while (create.getNume_coloana()[iter] != "")
-				iter++;
 			//creat iteratoare
-			for (int i = 0; i < iter; i++)
+			for (int i = 0; i < 2; i++)
 				myfile << create.getNume_coloana()[i] << " "
 				<< create.getTip()[i] << " "
 				<< create.getDimensiune()[i] << " "
 				<< create.getValoare_implicita()[i] << "; ";
+			myfile << "\n";
 			myfile.close();
 #pragma endregion Afisare in fisier .txt a val pt tabel
 		}
 		break;
 	}
+	//comentat case-ul
 	case DROP: {
 		DROP_class drop;
-#pragma region tratez problema cuvantului TABLE si a numelui tabelului
 		p = strtok(NULL, " ");
 		drop.testTable(p);
 		if (drop.getIsOk() == 1) {
 			p = strtok(NULL, " ");
 			string pString(p);
 			command.setTableName(pString);
-#pragma endregion tratez problema cuvantului TABLE si a numelui tabelului
-			//implementare drop in fisier
 			//deschide baza
-#pragma region creaza un fisier temp si salvez in el toata baza de date fara ce trebuie sters, iar apoi l-am redenumit la numele fisierului initial
 			ifstream myfile;
 			myfile.open("BazaDeDate.txt");
 			if (myfile.is_open()) {
 				string sir;
 				ofstream outTemp;
 				outTemp.open("BazeDeDate_temp.txt");
-				while (getline(myfile, sir)) {
+				while (getline(myfile, sir)){
 					size_t space_poz = sir.find(": ");
 					if (sir.substr(0, space_poz) != command.getTableName()) {
 						outTemp << sir << "\n";
@@ -153,7 +146,6 @@ int main() {
 			remove("BazaDeDate.txt");
 			rename("BazeDeDate_temp.txt", "BazaDeDate.txt");
 		}
-#pragma endregion creaza un fisier temp si salvez in el toata baza de date fara ce trebuie sters, iar apoi l-am redenumit la numele fisierului initial
 		break;
 	}
 	case DISPLAY: {
@@ -194,6 +186,11 @@ int main() {
 		break;
 	}
 	}
+	
+	
+
+
+
 
 
 	////mergem prin restul sirurilor

@@ -153,7 +153,7 @@ public:
 			itor++;
 		this->nume_coloana = new string[++itor];
 		//initializez un spatiu un plus cu sirul gol pentru a putea vedea cate coloane avem in create, in main
-		for (int i = 0; i <= itor; i++)
+		for (int i = 0; i < itor; i++)
 			this->nume_coloana[i] = "";
 		for (int i = 0; i < itor; i++)
 			this->nume_coloana[i] = bufferNume_coloana[i];
@@ -169,7 +169,7 @@ public:
 	}
 	void setDimensiune(int* bufferDimensiune) {
 		int itor = 0;
-		while (bufferDimensiune[itor] != NULL)
+		while (bufferDimensiune[itor] != 0)
 			itor++;
 		this->dimensiune = new int[itor];
 		for (int i = 0; i < itor; i++) {
@@ -274,46 +274,26 @@ public:
 class DELETE_class {
 private:
 	bool isOk;
-	string* numeColoane;
 public:
 	DELETE_class()
 	{
 		this->isOk = 0;
-		this->numeColoane = NULL;
 	}
 	
 	//getteri
-	bool getIsOk()
-	{
+	bool getIsOk(){
 		return this->isOk;
 	}
-	string* getNumeColoane()
-	{
-		return this->numeColoane;
-	}
 
-	//setteri
-	void setNumeColoane(string* bufferNume_coloane)
-	{
-		int itor = 0;
-		while (bufferNume_coloane[itor] != "")
-			itor++;
-		this->numeColoane = new string[++itor];
-		for (int i = 0; i <= itor; i++)
-			this->numeColoane[i] = "";
-		for (int i = 0; i < itor; i++)
-			this->numeColoane[i] = bufferNume_coloane[i];
-	}
+
+	//setterI
 };
 class SELECT_class {
 private:
 	bool isOk;
-	string* numeColoane;
 public:
-	SELECT_class()
-	{
+	SELECT_class(){
 		this->isOk = 0;
-		this->numeColoane = NULL;
 	}
 
 	//geteri
@@ -321,35 +301,16 @@ public:
 	{
 		return this->isOk;
 	}
-	string* getNumeColoane()
-	{
-		return this->numeColoane;
-	}
 
 	//setter
-	void setNumeColoane(string* bufferNume_coloane)
-	{
-		int itor = 0;
-		while (bufferNume_coloane[itor] != "")
-			itor++;
-		this->numeColoane = new string[++itor];
-		for (int i = 0; i <= itor; i++)
-			this->numeColoane[i] = "";
-		for (int i = 0; i < itor; i++)
-			this->numeColoane[i] = bufferNume_coloane[i];
-	}
 };
 class UPDATE_class {
 private:
 	bool isOk;
-	string numeColoana;
-	string whereNumeColoana;
 public:
-	UPDATE_class()
-	{
+	UPDATE_class()	{
 		this->isOk = 0;
-		this->numeColoana = " ";
-		this->whereNumeColoana = " ";
+
 	}
 
 	//getteri
@@ -357,22 +318,7 @@ public:
 	{
 		return this->isOk;
 	}
-	string getNumeColoana()
-	{
-		return this->numeColoana;
-	}
-	string getWhereNumeColoana()
-	{
-		return this->whereNumeColoana;
-	}
+
 
 	//setteri
-	void setNumeColoana(string newNumeColoana)
-	{
-		this->numeColoana = newNumeColoana;
-	}
-	void setWhereNumeColoana(string newWhereNumeColoana)
-	{
-		this->numeColoana = newWhereNumeColoana;
-	}
 };
