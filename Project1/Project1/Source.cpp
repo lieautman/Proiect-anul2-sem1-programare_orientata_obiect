@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 #include<fstream>
+#include<string>
 #include"Header.h"
 using namespace std;
 
@@ -16,12 +17,14 @@ int stringtoint(string buffer) {
 }
 
 int main() {
+#pragma region citire comanda de la tastatura
 	//declarare si citire comanda luata de la tastatura de maxim 500 de caractere
 	char comandaDeLaStdin[500];
 	char* p = 0;//declarare pointer pt strtok, pentru a putea sparge sirul in subsiruri
 	cout << "Dati comanda:";
 	cin.getline(comandaDeLaStdin, sizeof(comandaDeLaStdin));//citire cu spatii de la stdin
-
+#pragma endregion citire comanda de la tastatura
+#pragma region save first keyword in class to determine what command to use
 	//Cream obiectul de tip comanda
 	Command command;
 
@@ -31,6 +34,7 @@ int main() {
 
 	//Seteaza tipul comenzii regasite in primul cuvant
 	command.setCommandTypeAtributes(ToTypeCommand(command.getFirstWord()));
+#pragma endregion save first keyword in class to determine what command to use
 
 	//Facem switch in functie de primul cuvant slavat in atributul tipul comenzi
 	switch (command.getCommandTypeAtributes()) {
@@ -117,18 +121,39 @@ int main() {
 	}
 	case DROP: {
 		DROP_class drop;
+#pragma region tratez problema cuvantului TABLE si a numelui tabelului
 		p = strtok(NULL, " ");
 		drop.testTable(p);
 		if (drop.getIsOk() == 1) {
 			p = strtok(NULL, " ");
 			string pString(p);
 			command.setTableName(pString);
+#pragma endregion tratez problema cuvantului TABLE si a numelui tabelului
+			//implementare drop in fisier
+			//deschide baza
+#pragma region creaza un fisier temp si salvez in el toata baza de date fara ce trebuie sters, iar apoi l-am redenumit la numele fisierului initial
+			ifstream myfile;
+			myfile.open("BazaDeDate.txt");
+			if (myfile.is_open()) {
+				string sir;
+				ofstream outTemp;
+				outTemp.open("BazeDeDate_temp.txt");
+				while (getline(myfile, sir)) {
+					size_t space_poz = sir.find(": ");
+					if (sir.substr(0, space_poz) != command.getTableName()) {
+						outTemp << sir << "\n";
+					}
+				}
+				//inchide fisierul temporal
+				outTemp.close();
+			}
+			else
+				cout << "Nu exista baza de date!";
+			myfile.close();
+			remove("BazaDeDate.txt");
+			rename("BazeDeDate_temp.txt", "BazaDeDate.txt");
 		}
-		//implementare drop in fisier
-
-
-
-
+#pragma endregion creaza un fisier temp si salvez in el toata baza de date fara ce trebuie sters, iar apoi l-am redenumit la numele fisierului initial
 		break;
 	}
 	case DISPLAY: {
@@ -169,11 +194,6 @@ int main() {
 		break;
 	}
 	}
-
-
-
-
-
 
 
 	////mergem prin restul sirurilor
