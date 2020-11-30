@@ -1,0 +1,1 @@
+nume_tabel: nume_coloana_1 tip 1 valoare_implicita; nume_coloana_2 tip 1 valoare_implicita; 
