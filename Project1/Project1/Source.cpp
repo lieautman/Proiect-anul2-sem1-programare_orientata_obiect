@@ -2,6 +2,8 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+//pt string to int
+#include <sstream>
 #include"Header.h"
 using namespace std;
 
@@ -11,9 +13,13 @@ string charpointertostring(char* p) {
 	return s;
 }
 //simple string to int to allow size to be saved in CREATE_class
-//trebuie implementat
+//https://www.geeksforgeeks.org/converting-strings-numbers-cc/
+//luat direct de pe net din pacate
 int stringtoint(string buffer) {
-	return 1;
+	int x;
+	stringstream geek(buffer);
+	geek >> x;
+	return x;
 }
 
 int main() {
@@ -104,7 +110,11 @@ int main() {
 			myfile.open("BazaDeDate.txt", ios::app);
 			myfile << command.getTableName() << ": ";
 			//creat iteratoare
-			for (int i = 0; i < 2; i++)
+			iter = 0;
+			while (create.getNume_coloana()[iter] != "")
+				iter++;
+			//scris in fisier
+			for (int i = 0; i < iter; i++)
 				myfile << create.getNume_coloana()[i] << " "
 				<< create.getTip()[i] << " "
 				<< create.getDimensiune()[i] << " "
@@ -156,6 +166,30 @@ int main() {
 			p = strtok(NULL, " ");
 			string pString(p);
 			command.setTableName(pString);
+			
+			//citeste din baza de date
+			ifstream myfile;
+			myfile.open("BazaDeDate.txt");
+			if (myfile.is_open()) {
+				string sir;
+				while (getline(myfile, sir)) {
+					size_t space_poz = sir.find(": ");
+					size_t final_poz = 0;
+					if (sir.substr(0, space_poz) == command.getTableName()) {
+						//afisez separat prima intrare si apoi celelalte in while
+						final_poz = sir.find(";", final_poz + 1);
+						cout << sir.substr(space_poz + 2, final_poz - space_poz - 2) << "\n";
+						while (sir.find(";", final_poz) != string::npos){
+							space_poz = final_poz;
+							final_poz = sir.find(";", final_poz+1);
+							cout << sir.substr(space_poz + 2, final_poz - space_poz) << "\n";
+						}
+					}
+				}
+			}
+			else
+				cout << "Nu exista baza de date!";
+			myfile.close();
 		}
 		break;
 	}
@@ -167,8 +201,52 @@ int main() {
 			p = strtok(NULL, " ");
 			string pString(p);
 			command.setTableName(pString);
+			//testez daca cuvantul value este scris corect
+			p = strtok(NULL, "(");
+			insert.testValue(p);
+			if (insert.getIsOk() == 1) {
+				//creez buffer pentru a citi string-ul din insert
+				string* buffer;
+				//citesc tot pana la paranteza
+				p = strtok(NULL, ");\n");
+				string sir = charpointertostring(p);
+				int nrValori = count(sir.begin(), sir.end(), ',') + 1;
+				buffer = new string[nrValori];
+
+				//citesc in buffer
+				int iter = 0;//iterator pt buffer
+				size_t pozitieInitiala = 0;
+				size_t pozitieVirgula;
+				pozitieVirgula = sir.find(",", 0);
+				buffer[iter] = sir.substr(pozitieInitiala, pozitieVirgula - pozitieInitiala);
+				iter++;
+				while (sir.find(",", pozitieVirgula + 1) != string::npos) {
+					pozitieInitiala = pozitieVirgula;
+					pozitieVirgula = sir.find(",", pozitieVirgula + 1);
+					buffer[iter] = sir.substr(pozitieInitiala + 1, pozitieVirgula - pozitieInitiala - 1);
+					iter++;
+				}
+				pozitieInitiala = pozitieVirgula;
+				pozitieVirgula = sir.find(",", pozitieVirgula + 1);
+				buffer[iter] = sir.substr(pozitieInitiala + 1, pozitieVirgula - pozitieInitiala - 3);
+			
+				//valorile din buffer trebuie puse in setter si testate tot acolo daca se potrivesc cu valorile din fisierul BazaDeDate.txt
+				insert.setValori(buffer);
+				
+				
+				
+				//Apoi trebuie puse intr-un fisier separat urmate de enter
+				ofstream myfile;
+				myfile.open("BazaDeDate.txt", ios::app);
+				for (int i = 0; i < nrValori; i++) {
+					myfile << insert.getValori()[i] << " ";
+				}
+				myfile << endl;
+				myfile.close();
+			}
 		}
 		//loop pentru preluarea valorilor, verificarea daca incap in tabel samd
+
 		break;
 	}
 	//trebuie implementat

@@ -249,11 +249,12 @@ public:
 class INSERT_class {
 private:
 	bool isOk;
-	string* values;
+	string* valori;
 
 public:
 	INSERT_class() {
 		this->isOk = 1;
+		this->valori = NULL;
 	}
 
 	//testeaza daca al doilea cuvant este scris cum trebuie
@@ -264,9 +265,25 @@ public:
 		if (pString != "INTO")
 			this->isOk = 0;
 	}
+	void testValue(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "VALUES")
+			this->isOk = 0;
+	}
+
+	//trebuie implementat
+	void setValori(string* valori) {
+
+	}
+
 
 	bool getIsOk() {
 		return this->isOk;
+	}
+	string* getValori() {
+		return this->valori;
 	}
 };
 
