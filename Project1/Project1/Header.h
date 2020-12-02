@@ -273,44 +273,104 @@ public:
 			this->isOk = 0;
 	}
 
-	//trebuie implementat
-	void setValori(string* valori) {
-
-	}
-
-
+	//getteri
 	bool getIsOk() {
 		return this->isOk;
 	}
 	string* getValori() {
 		return this->valori;
 	}
+
+	//setter
+	//trebuie implementat - am implementat
+	void setValori(string* bufferValori) {
+		int itor = 0;
+		while (bufferValori[itor] != "")
+			itor++;
+		this->valori = new string[itor];
+		for (int i = 0; i < itor; i++) {
+			this->valori[i] = bufferValori[i];
+		}
+	}
 };
 
-//trebuie implementat
+//trebuie implementat - am implementat
 class DELETE_class {
 private:
 	bool isOk;
+	string valoare;
 public:
 	DELETE_class()
 	{
 		this->isOk = 0;
+		this->valoare = "";
+	}
+
+	//testare al doilea cuvant(FROM)
+	void testInto(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "FROM")
+			this->isOk = 0;
+	}
+	//testare al treilea cuvant(WHERE)
+	void testValue(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "WHERE")
+			this->isOk = 0;
+	}
+	//testare egal
+	void testValue(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "=")
+			this->isOk = 0;
 	}
 	
 	//getteri
 	bool getIsOk(){
 		return this->isOk;
 	}
-
+	string getValoare()
+	{
+		return this->valoare;
+	}
 
 	//setterI
+	void setValoare(string nouaValoare)
+	{
+		this->valoare = nouaValoare;
+	}
 };
 class SELECT_class {
 private:
 	bool isOk;
+	string* numeColoane;
 public:
 	SELECT_class(){
 		this->isOk = 0;
+		this->numeColoane = NULL;
+	}
+
+	//testare al doilea cuvant(ALL)
+	void testInto(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "ALL")
+			this->isOk = 0;
+	}
+	//testare al treilea cuvant(FROM)
+	void testInto(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "FROM")
+			this->isOk = 0;
 	}
 
 	//geteri
@@ -318,16 +378,49 @@ public:
 	{
 		return this->isOk;
 	}
+	string* getNumeColoane()
+	{
+		return this->numeColoane;
+	}
 
 	//setter
+	void setNumeColoane(string* bufferNumeColoane) {
+		int itor = 0;
+		while (bufferNumeColoane[itor] != "")
+			itor++;
+		this->numeColoane = new string[itor];
+		for (int i = 0; i < itor; i++) {
+			this->numeColoane[i] = bufferNumeColoane[i];
+		}
+	}
 };
 class UPDATE_class {
 private:
 	bool isOk;
+	string valoare1;
+	string valoare2;
 public:
 	UPDATE_class()	{
 		this->isOk = 0;
+		this->valoare1 = "";
+		this->valoare2 = "";
+	}
 
+	//testare al doilea cuvant(SET)
+	void testInto(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "SET")
+			this->isOk = 0;
+	}
+	//testare al treilea cuvant(WHERE)
+	void testInto(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "WHERE")
+			this->isOk = 0;
 	}
 
 	//getteri
@@ -335,7 +428,22 @@ public:
 	{
 		return this->isOk;
 	}
-
+	string getValoare1()
+	{
+		return this->valoare1;
+	}
+	string getValoare2()
+	{
+		return this->valoare2;
+	}
 
 	//setteri
+	void setValoare1(string nouaValoare1) {
+		this->valoare1 = nouaValoare1;
+	}
+	
+	void setValoare2(string nouaValoare2){
+		this->valoare2 = nouaValoare2;
+	}
+
 };
