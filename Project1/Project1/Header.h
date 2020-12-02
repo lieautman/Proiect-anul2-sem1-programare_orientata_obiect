@@ -250,11 +250,14 @@ class INSERT_class {
 private:
 	bool isOk;
 	string* valori;
-
+	string* tipV;
+	int* dimensiuneV;
 public:
 	INSERT_class() {
 		this->isOk = 1;
 		this->valori = NULL;
+		this->tipV = NULL;
+		this->dimensiuneV = NULL;
 	}
 
 	//testeaza daca al doilea cuvant este scris cum trebuie
@@ -273,9 +276,32 @@ public:
 			this->isOk = 0;
 	}
 
-	//trebuie implementat
 	void setValori(string* valori) {
-
+		int itor = 0;
+		while (valori[itor] != "")
+			itor++;
+		this->valori = new string[itor];
+		for (int i = 0; i < itor; i++) {
+			this->valori[i] = valori[i];
+		}
+	}
+	void setTipV(string* tipV) {
+		int itor = 0;
+		while (tipV[itor] != "")
+			itor++;
+		this->tipV = new string[itor];
+		for (int i = 0; i < itor; i++) {
+			this->tipV[i] = tipV[i];
+		}
+	}
+	void setDimensiuneV(int* dimensiuneV) {
+		int itor = 0;
+		while (dimensiuneV[itor] != 0)
+			itor++;
+		this->dimensiuneV = new int[itor];
+		for (int i = 0; i < itor; i++) {
+			this->dimensiuneV[i] = dimensiuneV[i];
+		}
 	}
 
 
@@ -285,32 +311,98 @@ public:
 	string* getValori() {
 		return this->valori;
 	}
+	string* getTipV() {
+		return this->tipV;
+	}
+	int* getDimensiuneV() {
+		return this->dimensiuneV;
+	}
 };
-
-//trebuie implementat
 class DELETE_class {
 private:
 	bool isOk;
+	string numeCamp;
+	string valoareCamp;
 public:
 	DELETE_class()
 	{
-		this->isOk = 0;
+		this->isOk = 1;
+		this->numeCamp = "";
+		this->valoareCamp = "";
 	}
 	
+	void testFrom(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "FROM")
+			this->isOk = 0;
+	}
+	void testWhere(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "WHERE")
+			this->isOk = 0;
+	}
+
+	void testNumeCamp(string buffer) {
+
+	}
+
+
 	//getteri
 	bool getIsOk(){
 		return this->isOk;
 	}
+	string getNumeCamp() {
+		return this->numeCamp;
+	}
+	string getValoareCamp() {
+		return this->valoareCamp;
+	}
 
-
-	//setterI
+	//setteri
+	void setNumeCamp(char* p) {
+		string pString(p);
+		this->numeCamp = pString;
+	}
+	void setValoareCamp(char* p) {
+		string pString(p);
+		this->valoareCamp = pString;
+	}
 };
 class SELECT_class {
 private:
 	bool isOk;
+	bool isStar;
+	bool* isValueNeeded;
+	string* atributeTabel;
+	string numeCamp;
+	string valoareCamp;
 public:
 	SELECT_class(){
-		this->isOk = 0;
+		this->isOk = 1;
+		this->isStar = 0;
+		this->isValueNeeded = NULL;
+		this->atributeTabel = NULL;
+		this->numeCamp = "";
+		this->valoareCamp = "";
+	}
+
+	void testFrom(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "FROM")
+			this->isOk = 0;
+	}
+	void testWhere(char* p) {
+		for (size_t i = 0; i < strlen(p) + 1; i++)
+			p[i] = toupper(p[i]);
+		string pString(p);
+		if (pString != "WHERE")
+			this->isOk = 0;
 	}
 
 	//geteri
@@ -318,9 +410,54 @@ public:
 	{
 		return this->isOk;
 	}
+	bool getIsStar() {
+		return this->isStar;
+	}
+	bool* getIsValueNeeded() {
+		return this->isValueNeeded;
+	}
+	string* getAtributeTabel() {
+		return this->atributeTabel;
+	}
+	string getNumeCamp() {
+		return this->numeCamp;
+	}
+	string getValoareCamp() {
+		return this->valoareCamp;
+	}
 
 	//setter
+	void setIsStar(bool val) {
+		this->isStar = val;
+	}
+	void setIsValueNeeded(bool* isValueNeeded) {
+		this->isValueNeeded = new bool[100];
+		//initializez 100 de intrari
+		for (int i = 0; i < 100; i++)
+			this->isValueNeeded[i] = 0;
+		for (int i = 0; i < 100; i++)
+			this->isValueNeeded[i] = isValueNeeded[i];
+	}
+	void setAtributeTabel(string* atribute) {
+		int itor = 0;
+		while (atribute[itor] != "")
+			itor++;
+		this->atributeTabel = new string[itor];
+		for (int i = 0; i < itor; i++)
+			this->atributeTabel[i] = "";
+		for (int i = 0; i < itor; i++)
+			this->atributeTabel[i] = atribute[i];
+	}
+	void setNumeCamp(char* p) {
+		string pString(p);
+		this->numeCamp = pString;
+	}
+	void setValoareCamp(char* p) {
+		string pString(p);
+		this->valoareCamp = pString;
+	}
 };
+//trebuie implementat
 class UPDATE_class {
 private:
 	bool isOk;
