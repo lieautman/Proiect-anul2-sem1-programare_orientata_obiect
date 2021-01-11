@@ -1,1 +1,1 @@
-DROP TABLE nume_tabel
+DROP TABLE nume_tabel1

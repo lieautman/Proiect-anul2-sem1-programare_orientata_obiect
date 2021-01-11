@@ -1,1 +1,1 @@
-CREATE TABLE nume_tabel ((nume_coloană_1, tip, 1, valoare_implicita), (nume_coloană_2, tip, 2, valoare_implicita))
+CREATE TABLE nume_tabel ((Nume, VARCHAR, 10, Andrei), (OreLucruPeZi, Number, 3, 8))
